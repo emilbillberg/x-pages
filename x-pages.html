@@ -1,0 +1,147 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`x-pages`
+A simple content switcher.
+
+@demo demo/index.html 
+-->
+
+<dom-module id="x-pages">
+  
+  <template>
+    
+    <style>
+
+      :host {
+          display: block;
+      }
+
+      :host ::content > :not([visible]) {
+          display: none !important;
+      }
+
+      :host([hidden]) {
+          display: none;
+      }
+
+    </style>
+
+    <content></content>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      /**
+        * Fired when an element has been selected.
+        *
+        * @event page-change
+        */
+
+      is: 'x-pages',
+
+      properties: {
+
+        /*
+         * The currently selected element.
+         */
+        selected: {
+          type: String,
+          observer: `_selectedObserver`
+        },
+        
+        /*
+         * Scrolls the page to the top if true.
+         */
+        autoScroll: {
+          type: Boolean,
+          value: false
+        },
+
+        /*
+         * Previously selected elements.
+         */
+        previousElements: {
+          type: Array
+        },
+
+        /*
+         * Currently selected elements.
+         */
+        currentElements: {
+          type: Array
+        },
+
+      },
+
+      /*
+       * Observe the `selected` property to handle active elements.
+       */
+      _selectedObserver: function(newValue, oldValue) {
+        this._autoScrollToTop();
+        let element = this._findElements(newValue, oldValue);
+        this.previousElements = element.previous;
+        this.currentElements = element.current;
+        this._deactivateChilds(this.previousElements);
+        this._activateChilds(this.currentElements);
+        const event = this.fire(`page-change`, { current: newValue, previous: oldValue }, { cancelable: true });
+      },
+
+      /*
+       * Finds the previously selected elements and the currently selected elements.
+       */
+      _findElements(newSelected, previousSelected) {
+        const childs = Polymer.dom(this).querySelectorAll(`[pattern]`);
+        let currentElements = [];
+        let previousElements = [];
+        for (let i = 0; i < childs.length; i++) {
+          const child = childs[i];
+          const pattern = child.getAttribute(`pattern`);
+          const regex = new RegExp(pattern);
+          if (regex.test(newSelected)) {
+            currentElements.push(child);
+          } else if (regex.test(previousSelected)) {
+            previousElements.push(child);
+          }
+        }
+        return {
+          current: currentElements,
+          previous: previousElements
+        }
+      },
+
+      /*
+       * Activate all childs by adding the `visible` attribute.
+       */
+      _activateChilds: function(childs) {
+        for (let i = 0; i < childs.length; i++) {
+          childs[i].setAttribute(`visible`, ``);
+        }
+      },
+
+      /*
+       * Deactivate all childs by removing the `visible` attribute.
+       */
+      _deactivateChilds: function(childs) {
+        for (let i = 0; i < childs.length; i++) {
+          childs[i].removeAttribute(`visible`, ``);
+        }
+      },
+
+      /*
+       * If `autoScroll` is true, scroll window to top. 
+       */
+      _autoScrollToTop: function() {
+        if (this.autoScroll) {
+          window.scrollTo(0, 0);
+        }
+      },
+
+    });
+
+  </script>
+  
+</dom-module>

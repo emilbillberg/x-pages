@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>x-pages demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../x-pages.html">
+
+  <link rel="import" href="x-home.html">
+  <link rel="import" href="x-about.html">
+  <link rel="import" href="x-contact.html">
+
+  <style is="custom-style" include="demo-pages-shared-styles">
+
+    x-pages > * {
+      padding: 16px;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="vertical-section-container centered">
+
+    <h3>x-pages demo</h3>
+
+    <demo-snippet>
+
+      <button id="home">Home</button>
+      <button id="about">About</button>
+      <button id="contact">Contact</button>
+
+      <x-pages id="pages">
+        <x-home pattern="^home$"></x-home>
+        <x-about pattern="^about$"></x-about>
+        <x-contact pattern="^contact$"></x-contact>
+      </x-pages>
+
+      <template>
+        <x-pages selected="[[selected]]" on-page-change="pageChange">
+          <x-home pattern="^home$"></x-home>
+          <x-about pattern="^about$"></x-about>
+          <x-contact pattern="^contact$"></x-contact>
+        </x-pages>
+      </template>
+
+    </demo-snippet>
+
+  </div>
+
+  <script>
+
+    var pages = document.getElementById("pages");
+    pages.selected = "home";
+    
+    document.getElementById("home").addEventListener(`click`, function() {
+      pages.selected = "home";
+    });
+
+    document.getElementById("about").addEventListener(`click`, function() {
+      pages.selected = "about";
+    });
+
+    document.getElementById("contact").addEventListener(`click`, function() {
+      pages.selected = "contact";
+    });
+
+  </script>
+
+</body>
+
+</html>
