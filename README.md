@@ -17,6 +17,11 @@ bower install --save emilbillberg/x-pages
     <link rel="import" href="demo/x-home.html">
     <link rel="import" href="demo/x-about.html">
     <link rel="import" href="demo/x-contact.html">
+    <style>
+        x-pages {
+            padding: 16px;
+        }
+    </style>
     <next-code-block></next-code-block>
     <script>
         var pages = document.querySelector("x-pages");
