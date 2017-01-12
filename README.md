@@ -40,9 +40,9 @@ bower install --save emilbillberg/x-pages
 <button id="about">About</button>
 <button id="contact">Contact</button>
 <x-pages>
-   <div pattern="^home$"></div>
-   <div pattern="^about$"></div>
-   <div pattern="^contact$"></div>
+   <div pattern="^home$">Home</div>
+   <div pattern="^about$">About</div>
+   <div pattern="^contact$">Contact</div>
 </x-pages>
 ```
 
