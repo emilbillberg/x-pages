@@ -21,9 +21,9 @@
     
     <template>
       <x-pages>
-        <div id="1" pattern="^1$"></div>
-        <div id="2" pattern="^2$"></div>
-        <div id="2-3" pattern="^2|3$"></div>
+        <div id="1" selected="1"></div>
+        <div id="2" selected="2"></div>
+        <div id="3" selected="3"></div>
       </x-pages>
     </template>
 
@@ -44,48 +44,38 @@
 
         test('selecting first element works', function () {
           element.selected = '1';
-          assert.equal(element.currentElements[0].id, '1');
+          assert.equal(element.current.id, '1');
         });
 
         test('selecting second element works', function () {
           element.selected = '2';
-          assert.equal(element.currentElements[0].id, '2');
+          assert.equal(element.current.id, '2');
         });
 
         test('selecting third element works', function () {
           element.selected = '3';
-          assert.equal(element.currentElements[0].id, '2-3');
+          assert.equal(element.current.id, '3');
         });
 
-        test('selecting multiple element works', function () {
-          element.selected = '2';
-          assert.equal(element.currentElements[1].id, '2-3');
-        });
-
-        test('activate childs works', function () {
+        test('activate child works', function () {
           var div1 = document.createElement('div');
-          var div2 = document.createElement('div');
-          element._activateChilds([div1, div2]);
+          element._activateChild(div1);
           assert.equal(div1.hasAttribute(`visible`), true);
-          assert.equal(div2.hasAttribute(`visible`), true);
         });
 
-        test('deactivate childs works', function () {
+        test('deactivate child works', function () {
           var div1 = document.createElement('div');
           div1.setAttribute('visible', '');
-          var div2 = document.createElement('div');
-          div2.setAttribute('visible', '');
-          element._deactivateChilds([div1, div2]);
+          element._deactivateChild(div1);
           assert.equal(div1.hasAttribute(`visible`), false);
-          assert.equal(div2.hasAttribute(`visible`), false);
         });
 
         test('page change event works', function (next) {
           element.selected = '1';
           element.addEventListener("page-change", function(event) {
             event.preventDefault = true;
-            assert.equal(event.detail.current, '2');
-            assert.equal(event.detail.previous, '1');
+            assert.equal(event.detail.current.id, '2');
+            assert.equal(event.detail.previous.id, '1');
             next();
           })
           element.selected = '2';
@@ -95,8 +85,8 @@
           let newValue = '1';
           let oldValue = '2';
           let foundElement = element._findElements(newValue, oldValue);
-          assert.equal(foundElement.previous[0].id, '2');
-          assert.equal(foundElement.current[0].id, '1');
+          assert.equal(foundElement.previous.id, '2');
+          assert.equal(foundElement.current.id, '1');
         });
 
       });

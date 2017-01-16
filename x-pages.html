@@ -36,7 +36,7 @@ A simple content switcher.
     Polymer({
 
       /**
-        * Fired when an element has been selected.
+        * Fired when an element has been selected. Detail object contains `previous` and `current` element.
         *
         * @event page-change
         */
@@ -46,7 +46,7 @@ A simple content switcher.
       properties: {
 
         /*
-         * The currently selected element.
+         * The currently selected string to match `pattern`.
          */
         selected: {
           type: String,
@@ -62,16 +62,16 @@ A simple content switcher.
         },
 
         /*
-         * Previously selected elements.
+         * Previously selected element.
          */
-        previousElements: {
+        previous: {
           type: Array
         },
 
         /*
-         * Currently selected elements.
+         * Currently selected element.
          */
-        currentElements: {
+        current: {
           type: Array
         },
 
@@ -83,51 +83,50 @@ A simple content switcher.
       _selectedObserver: function(newValue, oldValue) {
         this._autoScrollToTop();
         let element = this._findElements(newValue, oldValue);
-        this.previousElements = element.previous;
-        this.currentElements = element.current;
-        this._deactivateChilds(this.previousElements);
-        this._activateChilds(this.currentElements);
-        const event = this.fire(`page-change`, { current: newValue, previous: oldValue }, { cancelable: true });
+        this.previous = element.previous;
+        this.current = element.current;
+        this._deactivateChild(this.previous);
+        this._activateChild(this.current);
+        const event = this.fire(`page-change`, { current: this.current, previous: this.previous }, { cancelable: true });
       },
 
       /*
        * Finds the previously selected elements and the currently selected elements.
        */
-      _findElements(newSelected, previousSelected) {
-        const childs = Polymer.dom(this).querySelectorAll(`[pattern]`);
-        let currentElements = [];
-        let previousElements = [];
+      _findElements(newSelected, oldSelected) {
+        const childs = Polymer.dom(this).querySelectorAll(`[selected]`);
+        let currentElement = null;
+        let previousElement = null;
         for (let i = 0; i < childs.length; i++) {
           const child = childs[i];
-          const pattern = child.getAttribute(`pattern`);
-          const regex = new RegExp(pattern);
-          if (regex.test(newSelected)) {
-            currentElements.push(child);
-          } else if (regex.test(previousSelected)) {
-            previousElements.push(child);
+          const pattern = child.getAttribute(`selected`);
+          if (pattern === newSelected) {
+            currentElement = child;
+          } else if (pattern === oldSelected) {
+            previousElement = child;
           }
         }
         return {
-          current: currentElements,
-          previous: previousElements
+          current: currentElement,
+          previous: previousElement
         }
       },
 
       /*
        * Activate all childs by adding the `visible` attribute.
        */
-      _activateChilds: function(childs) {
-        for (let i = 0; i < childs.length; i++) {
-          childs[i].setAttribute(`visible`, ``);
+      _activateChild: function(child) {
+        if (child) {
+          child.setAttribute(`visible`, ``);
         }
       },
 
       /*
        * Deactivate all childs by removing the `visible` attribute.
        */
-      _deactivateChilds: function(childs) {
-        for (let i = 0; i < childs.length; i++) {
-          childs[i].removeAttribute(`visible`, ``);
+      _deactivateChild: function(child) {
+        if (child) {
+          child.removeAttribute(`visible`, ``);
         }
       },
 

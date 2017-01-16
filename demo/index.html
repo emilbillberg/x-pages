@@ -37,16 +37,16 @@
       <button id="contact">Contact</button>
 
       <x-pages id="pages">
-        <div pattern="^home$">Home</div>
-        <div pattern="^about$">About</div>
-        <div pattern="^contact$">Contact</div>
+        <div selected="home">Home</div>
+        <div selected="about">About</div>
+        <div selected="contact">Contact</div>
       </x-pages>
 
       <template>
         <x-pages selected="[[selected]]" on-page-change="pageChange">
-          <div pattern="^home$">Home</div>
-          <div pattern="^about$">About</div>
-          <div pattern="^contact$">Contact</div>
+          <div selected="home">Home</div>
+          <div selected="about">About</div>
+          <div selected="contact">Contact</div>
         </x-pages>
       </template>
 
