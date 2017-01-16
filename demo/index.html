@@ -14,10 +14,6 @@
   <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
   <link rel="import" href="../x-pages.html">
 
-  <link rel="import" href="x-home.html">
-  <link rel="import" href="x-about.html">
-  <link rel="import" href="x-contact.html">
-
   <style is="custom-style" include="demo-pages-shared-styles">
 
     x-pages > * {
@@ -41,16 +37,16 @@
       <button id="contact">Contact</button>
 
       <x-pages id="pages">
-        <x-home pattern="^home$"></x-home>
-        <x-about pattern="^about$"></x-about>
-        <x-contact pattern="^contact$"></x-contact>
+        <div pattern="^home$">Home</div>
+        <div pattern="^about$">About</div>
+        <div pattern="^contact$">Contact</div>
       </x-pages>
 
       <template>
         <x-pages selected="[[selected]]" on-page-change="pageChange">
-          <x-home pattern="^home$"></x-home>
-          <x-about pattern="^about$"></x-about>
-          <x-contact pattern="^contact$"></x-contact>
+          <div pattern="^home$">Home</div>
+          <div pattern="^about$">About</div>
+          <div pattern="^contact$">Contact</div>
         </x-pages>
       </template>
 
