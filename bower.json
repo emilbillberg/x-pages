@@ -1,7 +1,26 @@
 {
   "name": "x-pages",
-  "description": "A simple content switcher",
+  "description": "A simple content switcher built with webcomponents",
   "main": "x-pages.html",
+  "license": "MIT",
+  "homepage": "https://github.com/emilbillberg/x-pages",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/emilbillberg/x-pages.git"
+  },
+  "ignore": [
+    "bower_components",
+    "demo",
+    "test",
+    "index.html",
+    ".*"
+  ],
+  "keywords": [
+    "webcomponents",
+    "polymer",
+    "pages",
+    "container"
+  ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0"
   },
