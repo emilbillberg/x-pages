@@ -99,10 +99,11 @@ A simple content switcher.
         let previousElement = null;
         for (let i = 0; i < childs.length; i++) {
           const child = childs[i];
-          const selected = child.getAttribute(`selected`);
-          if (selected === newSelected) {
+          const selected = child.getAttribute(`selected`).toLowerCase();
+          let tagName = child.tagName.toLowerCase();
+          if ((selected === tagName) || (selected === newSelected)) {
             currentElement = child;
-          } else if (selected === oldSelected) {
+          } else if ((selected === tagName) || (selected === oldSelected)) {
             previousElement = child;
           }
         }

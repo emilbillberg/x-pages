@@ -21,9 +21,9 @@
     
     <template>
       <x-pages>
-        <div id="1" selected="1"></div>
-        <div id="2" selected="2"></div>
-        <div id="3" selected="3"></div>
+        <x-one id="1" selected="1"></x-one>
+        <x-two id="2" selected="2"></x-two>
+        <x-three id="3" selected="3"></x-three>
       </x-pages>
     </template>
 
@@ -55,6 +55,21 @@
         test('selecting third element works', function () {
           element.selected = '3';
           assert.equal(element.current.id, '3');
+        });
+
+        test('selecting first tag name works', function () {
+          element.selected = '1';
+          assert.equal(element.current.tagName, 'X-ONE');
+        });
+
+        test('selecting second tag name works', function () {
+          element.selected = '2';
+          assert.equal(element.current.tagName, 'X-TWO');
+        });
+
+        test('selecting third tag name works', function () {
+          element.selected = '3';
+          assert.equal(element.current.tagName, 'X-THREE');
         });
 
         test('activate child works', function () {
