@@ -94,7 +94,7 @@ A simple content switcher.
        * Finds the previously selected elements and the currently selected elements.
        */
       _findElements(newSelected, oldSelected) {
-        const childs = Polymer.dom(this).querySelectorAll(`[selected]`);
+        const childs = Polymer.dom(this).children;
         let currentElement = null;
         let previousElement = null;
         for (let i = 0; i < childs.length; i++) {
