@@ -9,40 +9,11 @@ bower install --save emilbillberg/x-pages
 ```
 
 ## Example
-<!--
 ```
-<custom-element-demo>
-  <template>
-    <link rel="import" href="x-pages.html">
-    <next-code-block></next-code-block>
-    <script>
-        var pages = document.querySelector("x-pages");
-        pages.selected = "home";
-        
-        document.getElementById("home").addEventListener(`click`, function() {
-            pages.selected = "home";
-        });
-
-        document.getElementById("about").addEventListener(`click`, function() {
-            pages.selected = "about";
-        });
-
-        document.getElementById("contact").addEventListener(`click`, function() {
-            pages.selected = "contact";
-        });
-    </script>
-  </template>
-</custom-element-demo>
-```
--->
-```html
-<button id="home">Home</button>
-<button id="about">About</button>
-<button id="contact">Contact</button>
-<x-pages>
-   <div pattern="^home$">Home</div>
-   <div pattern="^about$">About</div>
-   <div pattern="^contact$">Contact</div>
+<x-pages selected="[[page]]">
+   <div selected="home">Home</div>
+   <div selected="about">About</div>
+   <div selected="contact">Contact</div>
 </x-pages>
 ```
 
