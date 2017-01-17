@@ -36,8 +36,9 @@ A simple content switcher.
     Polymer({
 
       /**
-        * Fired when an element has been selected. Detail object contains `previous` and `current` element.
-        *
+        * Fired when an element has been selected. Detail object contains 
+        * - `previous` - the previously selected element. Will be `null` if no previous element exists. 
+        * - `current` - the currenlty selected element. Will be `null` if no element is found. 
         * @event page-change
         */
 
