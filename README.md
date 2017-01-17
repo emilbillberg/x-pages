@@ -2,6 +2,8 @@
 
 # x-pages
 A lightweight content switcher built with webcomponents.
+- [Documentation](https://www.webcomponents.org/element/emilbillberg/x-pages/x-pages)
+- [Demo](https://www.webcomponents.org/element/emilbillberg/x-pages/demo/demo/index.html)
 
 ## Install
 ```
